@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Shop Online at Velocity</title>
+</head>
+<body>
+    <div class="navbar">
+        <a class="heading" href="/main">Velocity</a>
+        <div>
+            <a class="account" href="">Account</a>
+            <a class="account" href="">Cart</a>
+        </div>
+    </div>
+    <div class="menu">
+        <div class="links">
+
+            <a href="/mobiles">Phone</a>
+            <a href="/mobiles">Electronics</a>
+            <a href="/mobiles">Men Clothings</a>
+            <a href="/mobiles">Women Clothings</a>
+            <a href="/mobiles">Footwear</a>
+            <a href="/mobiles">Furniture</a>          
+        </div>
+        
+        <div class="searchbox">
+            <form action="/header"> 
+                <input type="text" placeholder="Search Velocity">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="maincontainer">
+
+
+    <div class="dashmain">
+        <div class="dashnav">
+            <ul>
+                <li><a href="./addproduct">Add Product</a></li>
+                <li><a href="inventory">Inventory</a></li>
+                <li><a href="analytics">Analytics</a></li>
+                <li><a href="support/">Support</a></li>
+            </ul>
+        </div>
+        <div class="recentorder">
+
+            <p class="subheading">Recent Orders</p>
+            <div class="orders">
+                <p> Aman Shahwaz ordered 1 I Phone 15 pro max at 11:45 PM </p>
+                <p> Aman Shahwaz ordered 1 Samsung S23 Ultra at 11:45 PM </p>
+                <p> Aman Shahwaz ordered 1 Laptop at 11:45 PM </p>
+                <p> Aman Shahwaz ordered 1 Car at 11:45 PM </p>
+                <p> Aman Shahwaz ordered 1 Face Wash at 11:45 PM </p>
+                <a class="allorders" href="">View All Orders</a>
+            </div>
+
+            <div class="recentlyadded">
+                <p class="subheading">Recently added Products</p>
+                <div class="productcontainer">
+                    <% products.forEach(function (product) { %>
+                        <% if (product.category === 'mobile') { %>
+                            <div class="product">
+                                <div class="imagebox">
+                                    <img src="./images/<%= product.image %>" alt="Image Source not found">
+                                </div>
+                                <p>
+                                    <%= product.description %>
+                                </p>
+                                <p class="price"><%= product.price %></p>
+                                <a href="" class="cartbtn">ADD TO CART</a>
+                                <a href="" class="buybtn"> BUY NOW</a>
+                            </div>
+                        <% } %>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>

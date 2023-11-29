@@ -1,0 +1,38 @@
+<%- include('header') %>
+<div class="wraper">
+    <p class="subheading" style="margin-bottom:40px;">Add the following information</p>
+    <form class="productform" action="/addproduct"  method="post" enctype="multipart/form-data">
+        <label for="name">Name</label>
+        <input type="text" name="name">
+        <label for="description">Description</label>
+        <input type="text" name="description">
+        <label for="price">Price</label>
+        <input type="number" name="price">
+        <label for="category">category</label>
+        <!-- <input type="text" name="category"> -->
+        <select name="category">
+            <option class="options" value="mobile">Phone</option>
+            <option class="options" value="electronics">Electronics</option>
+            <option class="options" value="grocery">Grocery</option>
+            <option class="options" value="stationary">Stationary</option>
+            <option class="options" value="instrument">Instrument</option>
+            <option class="options" value="menclothing">Men Clothing</option>
+            <option class="options" value="womenclothing">Women Clothing</option>
+            <option class="options" value="shoes">Shoes</option>
+            <option class="options" value="books">Books</option>
+            <option class="options" value="toys">Toys</option>
+            <option class="options" value="home_appliances">Home Appliances</option>
+            <option class="options" value="sports_equipment">Sports Equipment</option>
+            <option class="options" value="furniture">Furniture</option>
+            <option class="options" value="beauty_products">Beauty Products</option>
+            <option class="options" value="jewelry">Jewelry</option>
+            <option class="options" value="automotive">Automotive</option>
+            <option class="options" value="computers">Computers</option>
+        <select>
+        <label for="quantity">quantity</label>
+        <input type="number" name="quantity">
+        <label for="image">Image</label>     
+        <input type="file" name="image">
+        <button type="submit"> Add Product</button>
+    </form>
+</div>

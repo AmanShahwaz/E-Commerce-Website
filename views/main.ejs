@@ -1,0 +1,45 @@
+<%- include('header') %>
+<div class="greeting">
+   <P>Merry Christmas</P>
+</div>
+    <div class="main">
+
+        <h2>Trending</h2>
+
+        <div class="phone">
+            <p class="subheading">Smart Phones</p>
+            <div class="productcontainer">
+                <% products.forEach(function (product) { %>
+                    <div class="product">
+                        <div class="imagebox">
+                            <img src="./images/<%= product.image %>" alt="Image Source not found">                        </div>
+                        <p>
+                            <%= product.description %>
+                        </p>
+                        <p class="price"><%= product.price %></p>
+                        <a href="" class="cartbtn">ADD TO CART</a>
+                        <a href="" class="buybtn"> BUY NOW</a>
+                    </div>
+                    <% }) %>
+
+            </div>
+        </div>
+        <div class="electronics">
+            <p>Electronics</p>
+            <div class="trending">
+            </div>
+
+        </div>
+        <div class="footwear">
+            <p>Footwear</p>
+            <div class="trending">
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+    <%- include('footer') %>

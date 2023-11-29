@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Login to Velocity</title>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Velocity</h1>
+    </div>
+    <p class="loginText">Create a new account</p>
+    <div class="loginform" style="margin-top: 50px;">
+        <form action="/createseller" method="post">
+            <label for="name">Name</label>
+            <input type="text" name="name">
+            <label for="email">Email</label>
+            <input type="email" name="email">
+            <label for="address">Address</label>
+            <input type="text" name="address">
+            <label for="pincode">Pincode</label>
+            <input type="number" name="pincode">
+            <label for="password">Password</label>
+            <input type="password" name="password">
+            <button>Create Account</button>
+        </form>
+    </div>

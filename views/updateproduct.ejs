@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Shop Online at Velocity</title>
+</head>
+<body>
+    <div class="navbar">
+        <a class="heading" href="/smain">Velocity</a>
+        <div>
+            <a class="account" href="">Account</a>
+            <a class="account" href="">Cart</a>
+        </div>
+    </div>
+    <div class="menu">
+        <div class="links">
+
+            <a href="/mobiles">Phone</a>
+            <a href="/mobiles">Electronics</a>
+            <a href="/mobiles">Men Clothings</a>
+            <a href="/mobiles">Women Clothings</a>
+            <a href="/mobiles">Footwear</a>
+            <a href="/mobiles">Furniture</a>        
+            <a href="/addproduct">Add Product</a>   
+        </div>
+        
+        <div class="searchbox">
+            <form action="/header"> 
+                <input type="text" placeholder="Search Velocity">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="maincontainer">
+
+        <!-- Assuming you have a route that renders this page, e.g., '/update/:productId' -->
+<!-- Make sure to replace the action attribute with the correct URL for your server-side route -->
+
+<form class="productform" action="/updateproduct/<%= product._id %>" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="<%= product.name %>" required>
+
+    <label for="description">Description:</label>
+    <input id="description" name="description" value="<%= product.description %>" required>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" value="<%= product.price %>" required>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" value="<%= product.quantity %>" required>
+
+    <label for="category">Category:</label>
+    <input type="text" id="category" name="category" value="<%= product.category %>" required>
+
+    <label for="image">Image URL:</label>
+    <input type="file" id="image" name="image" value="<%= product.image %>" required>
+
+    <button type="submit">Update Product</button>
+</form>
