@@ -1,44 +1,145 @@
 <%- include('sellerheader') %>
     <div class="sellbtn">
-        <a href="/dashboard">Sell at Velocity</a>
+        <a href="/dashboard" class="sav">Sell at Velocity</a>
     </div>
     <div class="greeting">
-        <P>Merry Christmas</P>
+        <P>Christmas Sale is live</P>
     </div>
     <div class="main">
 
-        <h2>Trending</h2>
+        <h2 class="theading">Trending at Velocity</h2>
 
         <div class="phone">
             <p class="subheading">Smart Phones</p>
             <div class="productcontainer">
                 <% products.forEach(function (product) { %>
-                    <% if (product.category === 'mobile') { %>
+                    <% if (product.category==='mobile' ) { %>
                         <div class="product">
-                            <div class="imagebox">
-                                <img src="./images/<%= product.image %>" alt="Image Source not found">
-                            </div>
-                            <p>
-                                <%= product.description %>
-                            </p>
-                            <p class="price"><%= product.price %></p>
-                            <a href="" class="cartbtn">ADD TO CART</a>
-                            <a href="" class="buybtn"> BUY NOW</a>
+                            <a href="buynow/<%= product.id %>" class="productlink">
+                                <div class="imagebox">
+                                    <img src="./images/<%= product.image %>" alt="Image Source not found">
+                                </div>
+                                <p>
+                                    <%= product.name %>
+                                </p>
+                                <p class="price" id="price">Rs: <%= product.price %>
+                                </p>
+                                <a href="" class="cartbtn">ADD TO CART</a>
+                                <a href="" class="buybtn"> BUY NOW</a>
+                            </a>
+
                         </div>
-                    <% } %>
-                <% }) %>
+                        <% } %>
+                            <% }) %>
             </div>
-             
+
 
         </div>
         <div class="electronics">
-            <p>Electronics</p>
+            <p class="subheading">Electronics</p>
+            <div class="productcontainer">
+                <% products.forEach(function (product) { %>
+                    <% if (product.category==='electronics' ) { %>
+                        <div class="product">
+                            <a href="buynow/<%= product.id %>" class="productlink">
+                                <div class="imagebox">
+                                    <img src="./images/<%= product.image %>" alt="Image Source not found">
+                                </div>
+                                <p>
+                                    <%= product.name %>
+                                </p>
+                                <p class="price" id="price">Rs: <%= product.price %>
+                                </p>
+                                <a href="" class="cartbtn">ADD TO CART</a>
+                                <a href="" class="buybtn"> BUY NOW</a>
+                            </a>
+
+                        </div>
+                        <% } %>
+                            <% }) %>
+            </div>
             <div class="trending">
             </div>
 
         </div>
-        <div class="footwear">
-            <p>Footwear</p>
+        <div class="womenclothing">
+            <p class="subheading">Women Clothing</p>
+            <div class="productcontainer">
+                <% products.forEach(function (product) { %>
+                    <% if (product.category==='womenclothing' ) { %>
+                        <div class="product">
+                            <a href="buynow/<%= product.id %>" class="productlink">
+                                <div class="imagebox">
+                                    <img src="./images/<%= product.image %>" alt="Image Source not found">
+                                </div>
+                                <p>
+                                    <%= product.name %>
+                                </p>
+                                <p class="price" id="price">Rs: <%= product.price %>
+                                </p>
+                                <a href="" class="cartbtn">ADD TO CART</a>
+                                <a href="" class="buybtn"> BUY NOW</a>
+                            </a>
+
+                        </div>
+                        <% } %>
+                            <% }) %>
+            </div>
+            <div class="trending">
+            </div>
+        </div>
+
+        <div class="menclothing">
+            <p class="subheading">Men Clothing</p>
+            <div class="productcontainer">
+                <% products.forEach(function (product) { %>
+                    <% if (product.category==='menclothing' ) { %>
+                        <div class="product">
+                            <a href="buynow/<%= product.id %>" class="productlink">
+                                <div class="imagebox">
+                                    <img src="./images/<%= product.image %>" alt="Image Source not found">
+                                </div>
+                                <p>
+                                    <%= product.name %>
+                                </p>
+                                <p class="price" id="price">Rs: <%= product.price %>
+                                </p>
+                                <a href="" class="cartbtn">ADD TO CART</a>
+                                <a href="" class="buybtn"> BUY NOW</a>
+                            </a>
+
+                        </div>
+                        <% } %>
+                            <% }) %>
+            </div>
+            <div class="trending">
+            </div>
+        </div>
+
+
+        <div class="menclothing">
+            <p class="subheading">Footwear</p>
+            <div class="productcontainer">
+                <% products.forEach(function (product) { %>
+                    <% if (product.category==='shoes' ) { %>
+                        <div class="product">
+                            <a href="buynow/<%= product.id %>" class="productlink">
+                                <div class="imagebox">
+                                    <img src="./images/<%= product.image %>" alt="Image Source not found">
+                                </div>
+                                <p>
+                                    <%= product.name %>
+                                </p>
+                                <p class="price" id="price">Rs: <%= product.price %>
+                                </p>
+                                <a href="" class="cartbtn">ADD TO CART</a>
+                                <a href="" class="buybtn"> BUY NOW</a>
+                            </a>
+
+                        </div>
+                        <% } %>
+                            <% }) %>
+            </div>
             <div class="trending">
             </div>
         </div>

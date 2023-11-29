@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
     <title>Shop Online at Velocity</title>
 </head>
+
 <body>
     <div class="navbar">
         <a class="heading" href="/main">Velocity</a>
@@ -16,16 +18,17 @@
     </div>
     <div class="menu">
         <div class="links">
+
             <a href="/mobile">Phone</a>
             <a href="/electronics">Electronics</a>
             <a href="/menclothing">Men Clothings</a>
             <a href="/womenclothing">Women Clothings</a>
             <a href="/footwear">Footwear</a>
-            <a href="/furniture">Furniture</a>  
+            <a href="/furniture">Furniture</a>
         </div>
-        
+
         <div class="searchbox">
-            <form action="/header"> 
+            <form action="/header">
                 <input type="text" placeholder="Search Velocity">
                 <button type="submit">Search</button>
             </form>
@@ -33,3 +36,26 @@
     </div>
 
     <div class="maincontainer">
+        <div class="buyingProduct">
+            <div class="imagebox">
+                <img src="/images/<%= found.image %>" alt="IMAGE NOT FOUND :(" srcset="">
+            </div>
+            <div class="descriptionbox">
+                <div class="textbox">
+                    <p>
+                        <%= found.name %>
+                    </p>
+                    <p>
+                        <%= found.description %>
+                    </p>
+                    <p class="price">
+                        <%= found.price %>
+                    </p>
+                </div>
+                <div class="btnbox">
+                    <a href="" class="buybtn"> BUY NOW</a>
+                    <a href="" class="buybtn"> ADD TO CART</a>
+                </div>
+            </div>
+
+        </div>

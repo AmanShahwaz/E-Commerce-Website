@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="navbar">
-        <a class="heading" href="/main">Velocity</a>
+        <a class="heading" href="/smain">Velocity</a>
         <div>
             <a class="account" href="">Account</a>
             <a class="account" href="">Cart</a>
@@ -16,13 +16,12 @@
     </div>
     <div class="menu">
         <div class="links">
-
-            <a href="/mobiles">Phone</a>
-            <a href="/mobiles">Electronics</a>
-            <a href="/mobiles">Men Clothings</a>
-            <a href="/mobiles">Women Clothings</a>
-            <a href="/mobiles">Footwear</a>
-            <a href="/mobiles">Furniture</a>          
+            <a href="/mobile">Phone</a>
+            <a href="/electronics">Electronics</a>
+            <a href="/menclothing">Men Clothings</a>
+            <a href="/womenclothing">Women Clothings</a>
+            <a href="/footwear">Footwear</a>
+            <a href="/furniture">Furniture</a>         
         </div>
         
         <div class="searchbox">
@@ -61,21 +60,18 @@
                 <p class="subheading">Recently added Products</p>
                 <div class="productcontainer">
                     <% products.forEach(function (product) { %>
-                        <% if (product.category === 'mobile') { %>
-                            <div class="product">
-                                <div class="imagebox">
+                            <div class="product"> 
+                                <a href="buynow/<%= product.id %>" class="productlink">                            <div class="imagebox">
                                     <img src="./images/<%= product.image %>" alt="Image Source not found">
                                 </div>
                                 <p>
-                                    <%= product.description %>
+                                    <%= product.name %>
                                 </p>
-                                <p class="price"><%= product.price %></p>
+                                <p class="price" id="price">Rs: <%= product.price %></p>
                                 <a href="" class="cartbtn">ADD TO CART</a>
                                 <a href="" class="buybtn"> BUY NOW</a>
+                            </a>
+    
                             </div>
-                        <% } %>
                     <% }) %>
                 </div>
-            </div>
-        </div>
-    </div>

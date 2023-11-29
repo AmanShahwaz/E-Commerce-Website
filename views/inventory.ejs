@@ -17,13 +17,12 @@
     </div>
     <div class="menu">
         <div class="links">
-
-            <a href="/mobiles">Phone</a>
-            <a href="/mobiles">Electronics</a>
-            <a href="/mobiles">Men Clothings</a>
-            <a href="/mobiles">Women Clothings</a>
-            <a href="/mobiles">Footwear</a>
-            <a href="/mobiles">Furniture</a>          
+            <a href="/mobile">Phone</a>
+            <a href="/electronics">Electronics</a>
+            <a href="/menclothing">Men Clothings</a>
+            <a href="/womenclothing">Women Clothings</a>
+            <a href="/footwear">Footwear</a>
+            <a href="/furniture">Furniture</a>         
         </div>
         
         <div class="searchbox">
@@ -37,12 +36,11 @@
     <div class="maincontainer">
         <div class="productcontainer">
             <% products.forEach(function (product) { %>
-                <% if (product.category === 'mobile') { %>
                     <div class="product">
                         <div class="imagebox">
                             <img src="./images/<%= product.image %>" alt="Image Source not found">
                         </div>
-                        <p>
+                        <p id="idesc">
                             <%= product.description %>
                         </p>
                         <p class="price">Price: <%= product.price %></p>
@@ -55,7 +53,6 @@
                         <!-- Delete button with the product ID in the URL -->
                         <a href="/delete/<%= product._id %>" class="cartbtn">Delete</a>
                     </div>
-                <% } %>
             <% }) %>
         </div>
         

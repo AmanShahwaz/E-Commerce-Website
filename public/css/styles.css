@@ -43,6 +43,14 @@
     color: #F4DFC8;
     font-family: 'Dancing Script', cursive;
 }
+.theading {
+    font-size: 2rem;
+    text-decoration: none;
+    color: crimson;
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 
 .navbar a {
     text-decoration: none;
@@ -58,21 +66,20 @@
     color: black;
 }
 
-.greeting{
+.greeting {
     display: flex;
     height: 300px;
     align-items: center;
     justify-content: center;
-    background-image: url('/images/greeting.jpg'), linear-gradient(rgba(0.3,0.4,0.1,0.1),rgba(0, 0, 0, 0.579),rgba(41, 41, 41, 0.399));
-    opacity:0.9;
+    background-image: url('/images/greeting.jpg'), linear-gradient(rgba(0.3, 0.4, 0.1, 0.1), rgba(0, 0, 0, 0.579), rgba(41, 41, 41, 0.399));
+    opacity: 0.9;
     color: yellow;
     font-size: 5rem;
     background-size: cover;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
 }
-.greeting p{
-    opacity:1;
+
+.greeting p {
+    opacity: 1;
 }
 
 
@@ -328,7 +335,8 @@ button:hover {
 }
 
 .subheading {
-    font-size: 1.3rem;
+    font-size: 2rem;
+    margin-bottom:20px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
@@ -379,16 +387,19 @@ button:hover {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding:20px;
-    padding-right:30px;
+    padding: 20px;
+    padding-right: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: all ease-in 0.1s;
 }
 
 .product:hover {
     transform: scale(1.05);
+    box-shadow:2px 2px  15px rgb(183, 183, 183);
 }
 
 .product .imagebox img {
@@ -417,7 +428,7 @@ button:hover {
 }
 
 .product .buybtn {
-    background-color: mediumspringgreen;
+    background-color: rgb(0, 85, 255);
     color: white;
     width: 100%;
     padding: 4px 0;
@@ -439,100 +450,193 @@ button:hover {
 
 
 
-.links{
+.links {
     margin-left: 20px;
 }
 
-.menu .links a{
+.menu .links a {
     text-decoration: none;
     border: 2px solid white;
-    padding:8px 10px;
+    padding: 8px 10px;
     color: white;
-    border-radius:10px;
+    border-radius: 10px;
     transition: all ease-in-out 0.3s;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.menu .links a:hover{
+.menu .links a:hover {
     background-color: white;
     color: rgb(0, 85, 255);
 }
 
-.menu .links a:nth-child(8){
+.menu .links a:nth-child(8) {
     background-color: crimson;
-    border: 2px solid crimson;   
+    border: 2px solid crimson;
 }
 
-.menu .links a:nth-child(8):hover{
-    border: 4px solid crimson;   
+.menu .links a:nth-child(8):hover {
+    border: 4px solid crimson;
     background-color: white;
     color: crimson;
 }
 
-.searchbox form{
-    padding-bottom:2vh;
+.searchbox form {
+    padding-bottom: 2vh;
     margin-right: 50px;
 }
 
-.searchbox input{
-    padding:7px 20px;
-    height:40px;
+.searchbox input {
+    padding: 7px 20px;
+    height: 40px;
     width: 300px;
-    border-radius:7px;
-    margin-top:0;
+    border-radius: 7px;
+    margin-top: 0;
     border: none;
     font-size: 1.2rem;
 }
 
-.searchbox button{
+.searchbox button {
     border: none;
-    border-radius:7px;
+    border-radius: 7px;
     width: 100px;
-    height:40px;
-    border-radius:5px;
+    height: 40px;
+    border-radius: 5px;
     background-color: #F4DFC8;
     transition: all ease-in 0.3s;
     color: black;
 }
 
-.searchbox button:hover{
+.searchbox button:hover {
     background-color: crimson;
 }
 
-.maincontainer{
-    margin:5% 7%;
+.maincontainer {
+    margin: 5% 7%;
 }
 
-.main h2{
-    margin:50px 0;
+.main h2 {
+    margin: 50px 0;
     font-size: 2rem;
 }
 
-.sellbtn{
+.sellbtn {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 7vh;
+    margin: 0;
 }
 
-.sellbtn a{
+.sellbtn a {
     width: 100%;
-    height: 5vh;
+    height: 100%;
     background-color: crimson;
     color: white;
     font-size: 1.2rem;
-    transition:all ease-in 0.3s;
+    transition: all ease-in 0.3s;
     text-decoration: none;
     letter-spacing: 2px;
     text-align: center;
-    padding-top:1vh;
-    border-top-right-radius:10px;
-    border-top-left-radius:10px;
+    padding-top: 2vh;
 }
 
-.sellbtn a:hover{
+.sellbtn a:hover {
     background-color: rgb(0, 81, 255);
-    
+
 }
 
+.product a {
+    text-decoration: none;
+    color: black;
+}
+
+.product #price {
+    color: crimson;
+    font-weight: bold;
+}
+
+.buyingProduct {
+    margin: 20px;
+    border: 2px solid rgb(191, 191, 191);
+    border-radius:10px;
+    padding:20px;
+    display: flex;
+    background-color: rgb(231, 231, 231);
+}
+.buyingProduct .imagebox img{
+    width:100%;
+    height:400px;
+    object-fit: initial;
+}
+.buyingProduct .descriptionbox{
+    width: 50%;
+    margin-left: 160px;
+}
+.buyingProduct .descriptionbox p{
+    margin-bottom:15px;
+}
+.buyingProduct .descriptionbox p:nth-child(1){
+    color: green;
+    font-size: 1.2rem;
+}
+.buyingProduct .descriptionbox p:nth-child(2){
+    color: rgb(70, 70, 70);
+    font-size: 1.1rem;
+    text-align: justify;
+    line-height:30px;
+}
+.buyingProduct .descriptionbox p:nth-child(3){
+    color: crimson;
+    font-size: 1.15rem;
+    text-align: justify;
+}
+
+.btnbox .buybtn{
+    width: 150px;
+    color: white;
+    text-decoration: none;
+    border-radius:10px;
+    padding:10px;
+    margin-right: 20px;
+    transition: all ease-in 0.3s;
+}
+
+
+
+.btnbox .buybtn:nth-child(1){
+    background-color: crimson;
+}
+.btnbox .buybtn:nth-child(1):hover{
+    background-color: black;
+}
+.btnbox .buybtn:nth-child(2){
+    background-color: mediumspringgreen;
+}
+
+.btnbox .buybtn:nth-child(2):hover{
+    background-color: black;
+}
+
+#idesc{
+    width: 100%;
+    text-align: left;
+    margin:10px 0;
+    color: rgb(51, 51, 51);
+}
+
+.phone, .electronics, .womenclothing, .menclothing, .footwear, .furniture{
+   padding:5% 7%;
+}
+
+.electronics, .menclothing{
+    background-color: black;
+}
+
+.electronics, .menclothing .subheading{
+    color: white;
+}
+
+.sav{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}

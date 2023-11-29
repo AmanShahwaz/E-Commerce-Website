@@ -16,14 +16,12 @@
     </div>
     <div class="menu">
         <div class="links">
-
-            <a href="/mobiles">Phone</a>
-            <a href="/mobiles">Electronics</a>
-            <a href="/mobiles">Men Clothings</a>
-            <a href="/mobiles">Women Clothings</a>
-            <a href="/mobiles">Footwear</a>
-            <a href="/mobiles">Furniture</a>        
-            <a href="/addproduct">Add Product</a>   
+            <a href="/mobile">Phone</a>
+            <a href="/electronics">Electronics</a>
+            <a href="/menclothing">Men Clothings</a>
+            <a href="/womenclothing">Women Clothings</a>
+            <a href="/footwear">Footwear</a>
+            <a href="/furniture">Furniture</a>
         </div>
         
         <div class="searchbox">
@@ -36,8 +34,6 @@
 
     <div class="maincontainer">
 
-        <!-- Assuming you have a route that renders this page, e.g., '/update/:productId' -->
-<!-- Make sure to replace the action attribute with the correct URL for your server-side route -->
 
 <form class="productform" action="/updateproduct/<%= product._id %>" method="POST">
     <label for="name">Name:</label>
@@ -54,6 +50,7 @@
 
     <label for="category">Category:</label>
     <input type="text" id="category" name="category" value="<%= product.category %>" required>
+    
 
     <label for="image">Image URL:</label>
     <input type="file" id="image" name="image" value="<%= product.image %>" required>

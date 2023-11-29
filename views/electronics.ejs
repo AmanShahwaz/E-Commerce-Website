@@ -1,0 +1,26 @@
+<%- include('header') %>
+
+    <p class="subheading">Smart Phones</p>
+    <div class="productcontainer">
+        <% products.forEach(function (product) { %>
+            <% if (product.category==='electronics' ) { %>
+                <div class="product">
+                    <a href="buynow/<%= product.id %>" class="productlink">
+                        <div class="imagebox">
+                            <img src="./images/<%= product.image %>" alt="Image Source not found">
+                        </div>
+                        <p>
+                            <%= product.name %>
+                        </p>
+                        <p class="price" id="price">Rs: <%= product.price %>
+                        </p>
+                        <a href="" class="cartbtn">ADD TO CART</a>
+                        <a href="" class="buybtn"> BUY NOW</a>
+                    </a>
+
+                </div>
+                <% } %>
+                    <% }) %>
+    </div>
+
+    <%- include('footer') %>

@@ -56,7 +56,9 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     address: { type: String, required: true },
     pincode: { type: Number, required: true },
+    cart:{type:[String]}
 });
+
 
 const sellerSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },
@@ -74,8 +76,9 @@ const productSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     quantity: { type: Number, default: 0 },
     category: { type: String, required: true },
-    image: { type: String, required: true },
+    image: { type: String, required: true }
 });
+
 
 
 
@@ -151,6 +154,10 @@ app.get('/inventory', async (req, res)=> {
 
 
 
+
+
+
+
 app.get('/dashboard', async (req, res)=> {
     
     try {
@@ -222,7 +229,7 @@ app.get('/delete/:productId', async (req, res) => {
 
 app.get('/updateproduct/:productId', async (req, res) => {
     const productId = req.params.productId;
-
+    
     try {
         // Find the product by ID
         const product = await Product.findById(productId);
@@ -236,6 +243,9 @@ app.get('/updateproduct/:productId', async (req, res) => {
 
 app.post('/updateproduct/:productId', async (req, res) => {
     const productId = req.params.productId;
+    const currentProduct = await Product.findById(productId);
+
+    
     const updatedProduct = req.body;
 
     try {
@@ -249,6 +259,31 @@ app.post('/updateproduct/:productId', async (req, res) => {
     }
 });
 
+app.post('/add-to-cart/:productId', async (req, res) => {
+    const productId = req.params.productId;
+
+    try {
+        const userId = 'userId'; 
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        // Add the product ID to the user's cart
+        user.cart.push(productId);
+
+        // Save the updated user document
+        await user.save();
+
+        res.status(200).send('Product added to cart successfully');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error adding product to cart');
+    }
+});
+
+
 
 app.get('/loginPage', function (req, res) {
     res.render('loginPage')
@@ -257,6 +292,26 @@ app.get('/loginPage', function (req, res) {
 
 app.get('/userlogin', function (req, res) {
     res.render('userlogin')
+})
+
+
+app.post('/userlogin', async(req,res)=>{
+    const emailid = req.body.email;
+    const pass = req.body.password;
+
+    try {
+        let found = await User.findOne({email:emailid});
+        console.log(found.id);
+        let sid = found.id;
+
+        if(found.password === pass){
+            console.log(found.name+" logged in.....");
+            res.redirect("main");
+        }
+
+    } catch (error) {
+        console.log('Error in login in seller')
+    }
 })
 
 
@@ -333,6 +388,113 @@ app.post('/createseller', async (req, res)=> {
     }
 
 })
+
+app.get('/buynow/:id', async (req, res) => {
+    let iid = req.params.id;
+
+    try {
+        // Use async/await or exec() to get the result from the query
+        const found = await Product.findOne({ _id: iid }).exec();
+        console.log(found)
+        if (found) {
+            res.render('buynow', {
+                found
+            });
+        } else {
+            // Handle the case where the product with the given ID is not found
+            res.status(404).send('Product not found');
+        }
+    } catch (err) {
+        // Handle any errors that occur during the query or rendering
+        res.status(500).send(err);
+        console.log(err);
+    }
+});
+
+
+// -----------------------------------------------------------
+// Endpoint for men category
+app.get('/mobile', async (req, res) => {
+    try {
+        let products = await Product.find();
+        res.render('mobile', {
+            products: products,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error fetching products');
+    }
+});
+
+// Endpoint for women category
+app.get('/electronics', async (req, res) => {
+    try {
+        let products = await Product.find();
+        res.render('electronics', {
+            products: products,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error fetching products');
+    }
+});
+
+// Endpoint for menclothing category
+app.get('/menclothing', async (req, res) => {
+    try {
+        let products = await Product.find();
+        res.render('menclothing', {
+            products: products,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error fetching products');
+    }
+});
+
+// Endpoint for womenclothing category
+app.get('/womenclothing', async (req, res) => {
+    try {
+        let products = await Product.find();
+        res.render('womenclothing', {
+            products: products,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error fetching products');
+    }
+});
+
+// Endpoint for footwear category
+app.get('/footwear', async (req, res) => {
+    try {
+        let products = await Product.find();
+        res.render('footwear', {
+            products: products,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error fetching products');
+    }
+});
+
+// Endpoint for furniture category
+app.get('/furniture', async (req, res) => {
+    try {
+        let products = await Product.find();
+        res.render('furniture', {
+            products: products,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error fetching products');
+    }
+});
+
+
+
+
+
 
 
 app.get('/adminpage' ,function(req,res){
