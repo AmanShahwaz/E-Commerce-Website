@@ -58,6 +58,10 @@ const userSchema = new mongoose.Schema({
     pincode: { type: Number, required: true },
     cart:{type:[String]}
 });
+const issueSchema = new mongoose.Schema({
+    name: { type: String },
+    issue:  { type: String}
+});
 
 
 const sellerSchema = new mongoose.Schema({
@@ -83,7 +87,10 @@ const productSchema = new mongoose.Schema({
 
 
 
-const orderSchema = new mongoose.Schema({
+const cartSchema = new mongoose.Schema({
+    userid:{
+        type:String
+    },
     itemName: {
         type: String,
         require: true
@@ -94,11 +101,9 @@ const orderSchema = new mongoose.Schema({
     },
     boughtBy: {
         type: String,
-        required: true
     },
     deliveryAddress: {
         type: String,
-        required: true
     }
 })
 
@@ -107,30 +112,33 @@ const orderSchema = new mongoose.Schema({
 const User = new mongoose.model('user', userSchema);
 const Seller = new mongoose.model('seller', sellerSchema);
 const Product = new mongoose.model('product', productSchema);
-const Item = new mongoose.model('item', orderSchema);
+const Item = new mongoose.model('item', cartSchema);
 
 
 app.get('/', function (req, res) {
     res.render('ShopOnline')
 })
 
-app.get('/main', async(req, res)=> {
+
+app.get('/main', async (req, res) => {
     try {
         let products = await Product.find();
-        res.render('main',{
-            products:products
-        })
+        res.render('main', {
+            products: products,
+            userId: req.query.userId, 
+        });
     } catch (error) {
-        console.log(err)
+        console.log(err);
     }
+});
 
-})
 app.get('/smain', async(req, res)=> {
     
     try {
         let products = await Product.find();
         res.render('smain',{
             products:products,
+            userId: req.query.userId, 
         })
     } catch (err) {
         console.log(err)
@@ -153,7 +161,63 @@ app.get('/inventory', async (req, res)=> {
 
 
 
+app.get('/addToCart/:productId', async (req, res) => {
+    const productId = req.params.productId;
+    const userId = req.query.userId;
 
+    try {
+        // Find the user by ID
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        // Add the product ID to the user's cart
+        user.cart.push(productId);
+
+        // Save the updated user document
+        await user.save();
+
+        res.redirect('/main?userId=' + userId); // Redirect back to the main page
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error adding product to cart');
+    }
+});
+
+
+// Assuming you have a route like this in your app.js or wherever you define routes
+app.get('/cart/:userId', async (req, res) => {
+    try {
+        const userId = req.params.userId;
+
+        // Find the user by ID
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        // Get the product IDs from the user's cart
+        const productIds = user.cart;
+
+        // Fetch the product details for each product ID
+        const cartProducts = await Promise.all(productIds.map(async (productId) => {
+            const product = await Product.findById(productId);
+            return product;
+        }));
+
+        // Pass the cartProducts to the EJS template
+        res.render('cart', {
+            cartProducts: cartProducts,
+            userId:userId
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 
 
@@ -194,6 +258,8 @@ app.get('/support', function(req,res){
 })
 
 
+
+
 app.post('/addproduct',  upload.single('image'), async(req,res)=>{
     try {
         req.file
@@ -225,6 +291,40 @@ app.get('/delete/:productId', async (req, res) => {
         res.status(500).json({ error: 'Error deleting product' });
     }
 });
+
+
+// Assuming you have a route like this in your app.js or wherever you define routes
+app.get('/deletecartitem/:productId', async (req, res) => {
+    try {
+        const productId = req.params.productId;
+        const userId = req.query.userId;
+
+        // Validate userId and productId
+        if (!userId || !productId) {
+            return res.status(400).json({ error: 'Invalid userId or productId' });
+        }
+
+        // Find the user by ID and update the cart
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Remove the productId from the user's cart
+        user.cart = user.cart.filter(cartItem => cartItem !== productId);
+
+        // Save the updated user object
+        await user.save();
+
+        // Redirect to the cart page or any other page
+        res.redirect(`/cart/${userId}`);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 
 app.get('/updateproduct/:productId', async (req, res) => {
@@ -259,29 +359,65 @@ app.post('/updateproduct/:productId', async (req, res) => {
     }
 });
 
-app.post('/add-to-cart/:productId', async (req, res) => {
-    const productId = req.params.productId;
 
+app.post('/addToCart/:productId', async (req, res) => {
     try {
-        const userId = 'userId'; 
-        const user = await User.findById(userId);
+        const productId = req.params.productId;
+        const userId = req.query.userId;
 
-        if (!user) {
-            return res.status(404).send('User not found');
+        // Step 1: Find the product by its ID
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
         }
 
-        // Add the product ID to the user's cart
-        user.cart.push(productId);
+        // Step 2: Get the user ID from the request query parameters
+        if (!userId) {
+            return res.status(400).json({ error: 'User ID is required' });
+        }
 
-        // Save the updated user document
-        await user.save();
+        // Step 3: Check if a cart item for the user and product already exists
+        const existingCartItem = await Cart.findOne({
+            userid: userId,
+            itemName: product.name,
+        });
 
-        res.status(200).send('Product added to cart successfully');
+        if (existingCartItem) {
+            // Step 4: If it exists, update the quantity
+            existingCartItem.quantity += 1;
+            await existingCartItem.save();
+        } else {
+            // Step 4: Otherwise, create a new cart item
+            const newCartItem = new Cart({
+                userid: userId,
+                itemName: product.name,
+                quantity: 1, // You may adjust the initial quantity as needed
+                boughtBy: '', // Provide the necessary information
+                deliveryAddress: '', // Provide the necessary information
+            });
+
+            // Step 5: Save the new cart item to the database
+            await newCartItem.save();
+        }
+
+        res.redirect('/main?userId=' + userId); // Redirect to the main page or any other page
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error adding product to cart');
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+
+
+// app.get('/cart/:userid', async(req,res)=>{
+//     let userId = req.params.userid;
+//     console.log(userId)
+//     let user = await User.findById(userId);
+//     console.log(user.id);
+
+    
+// })
 
 
 
@@ -295,24 +431,24 @@ app.get('/userlogin', function (req, res) {
 })
 
 
-app.post('/userlogin', async(req,res)=>{
+app.post('/userlogin', async (req, res) => {
     const emailid = req.body.email;
     const pass = req.body.password;
 
     try {
-        let found = await User.findOne({email:emailid});
+        let found = await User.findOne({ email: emailid });
         console.log(found.id);
         let sid = found.id;
 
-        if(found.password === pass){
-            console.log(found.name+" logged in.....");
-            res.redirect("main");
+        if (found.password === pass) {
+            console.log(found.name + " logged in.....");
+            res.redirect("/main?userId=" + sid); 
         }
 
     } catch (error) {
-        console.log('Error in login in seller')
+        console.log('Error in login in seller');
     }
-})
+});
 
 
 app.get('/sellerlogin', function (req, res) {
@@ -332,7 +468,7 @@ app.post('/sellerlogin', async(req,res)=>{
 
         if(found.password === pass){
             console.log(found.name+" logged in.....");
-            res.redirect("smain");
+            res.redirect("smain?userId=" + sid);
         }
 
     } catch (error) {
@@ -389,23 +525,25 @@ app.post('/createseller', async (req, res)=> {
 
 })
 
+
+
+
 app.get('/buynow/:id', async (req, res) => {
     let iid = req.params.id;
 
     try {
-        // Use async/await or exec() to get the result from the query
+
         const found = await Product.findOne({ _id: iid }).exec();
         console.log(found)
         if (found) {
             res.render('buynow', {
-                found
+                userId:iid,
+                found:found
             });
         } else {
-            // Handle the case where the product with the given ID is not found
             res.status(404).send('Product not found');
         }
     } catch (err) {
-        // Handle any errors that occur during the query or rendering
         res.status(500).send(err);
         console.log(err);
     }
@@ -413,7 +551,134 @@ app.get('/buynow/:id', async (req, res) => {
 
 
 // -----------------------------------------------------------
-// Endpoint for men category
+
+
+
+app.get('/mobile/:userId', async (req, res) => {
+    let userId = req.params.userId;
+    try {
+        let products = await Product.find();
+        res.render('mobile', {
+            products: products,
+            userId:userId
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error fetching products');
+    }
+});
+
+app.get('/electronics/:userId', async (req, res) => {
+    let userId = req.params.userId;
+
+    try {
+        let products = await Product.find();
+        res.render('electronics', {
+            products: products,
+            userId:userId
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error fetching products');
+    }
+});
+
+app.get('/menclothing/:userId', async (req, res) => {
+    let userId = req.params.userId;
+
+    try {
+        let products = await Product.find();
+        res.render('menclothing', {
+            products: products,
+            userId:userId
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error fetching products');
+    }
+});
+
+app.get('/womenclothing/:userId', async (req, res) => {
+    let userId = req.params.userId;
+
+    try {
+        let products = await Product.find();
+        res.render('womenclothing', {
+            products: products,
+            userId:userId
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error fetching products');
+    }
+});
+
+
+app.get('/footwear/:userId', async (req, res) => {
+    let userId = req.params.userId;
+
+    try {
+        let products = await Product.find();
+        res.render('footwear', {
+            products: products,
+            userId:userId
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error fetching products');
+    }
+});
+
+app.get('/furniture/:userId', async (req, res) => {
+    let userId = req.params.userId;
+
+    try {
+        let products = await Product.find();
+        res.render('furniture', {
+            products: products,
+            userId:userId
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Error fetching products');
+    }
+});
+
+
+
+
+app.get('/analytics', async(req, res)=> {
+    
+    try {
+        let products = await Product.find();
+        console.log(products);
+        res.render('/analytics',{
+            products
+        })
+    } catch (err) {
+        console.log(err)
+    }
+
+})
+
+
+
+
+
+
+
+
+
+
+app.listen('3000', () => {
+    console.log("Server active on port 3000")
+})
+
+
+
+// for seller endpoints
+
+
 app.get('/mobile', async (req, res) => {
     try {
         let products = await Product.find();
@@ -426,7 +691,7 @@ app.get('/mobile', async (req, res) => {
     }
 });
 
-// Endpoint for women category
+
 app.get('/electronics', async (req, res) => {
     try {
         let products = await Product.find();
@@ -439,7 +704,7 @@ app.get('/electronics', async (req, res) => {
     }
 });
 
-// Endpoint for menclothing category
+
 app.get('/menclothing', async (req, res) => {
     try {
         let products = await Product.find();
@@ -452,7 +717,7 @@ app.get('/menclothing', async (req, res) => {
     }
 });
 
-// Endpoint for womenclothing category
+
 app.get('/womenclothing', async (req, res) => {
     try {
         let products = await Product.find();
@@ -465,7 +730,6 @@ app.get('/womenclothing', async (req, res) => {
     }
 });
 
-// Endpoint for footwear category
 app.get('/footwear', async (req, res) => {
     try {
         let products = await Product.find();
@@ -478,7 +742,7 @@ app.get('/footwear', async (req, res) => {
     }
 });
 
-// Endpoint for furniture category
+
 app.get('/furniture', async (req, res) => {
     try {
         let products = await Product.find();
@@ -490,21 +754,3 @@ app.get('/furniture', async (req, res) => {
         res.status(500).send('Error fetching products');
     }
 });
-
-
-
-
-
-
-
-app.get('/adminpage' ,function(req,res){
-    res.render('adminpage')
-})
-
-
-
-
-
-app.listen('3000', () => {
-    console.log("Server active on port 3000")
-})

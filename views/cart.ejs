@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Shop Online at Velocity</title>
+</head>
+<body>
+    <div class="navbar">
+        <a class="heading" href="/main">Velocity</a>
+        <div>
+        </div>
+    </div>
+    <div class="menu">
+        <div class="links">
+            <div class="links">
+                <a href="/mobile/<%= userId %>">Phone</a>
+                <a href="/electronics/<%= userId %>">Electronics</a>
+                <a href="/menclothing/<%= userId %>">Men Clothings</a>
+                <a href="/womenclothing/<%= userId %>">Women Clothings</a>
+                <a href="/footwear/<%= userId %>">Footwear</a>
+                <a href="/furniture/<%= userId %>">Furniture</a>        
+            </div>       
+   
+        </div>
+        <div class="searchbox">
+            <form action="/header"> 
+                <input type="text" placeholder="Search Velocity">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="maincontainer">
+
+
+<!-- cart.ejs -->
+
+<h1>Your Cart</h1>
+
+<div class="cart-container">
+    <% let totalValue = 0; %>
+    <% cartProducts.forEach(function(cproduct) { %>
+        <% if (cproduct) { %>
+            <div class="productincart">
+                <div class="cartproduct">
+                    <% if (cproduct.image) { %>
+                        <img src="/images/<%= cproduct.image %>" alt="Image not found" class="product-image">
+                    <% } else { %>
+                        <p>No Image Available</p>
+                    <% } %>
+                    <p><%= cproduct.name %></p>
+                    <p>Rs. <%= cproduct.price %></p>
+                    <a href="/deletecartitem/<%= cproduct.id %>?userId=<%= userId %>">Delete</a>
+                </div>
+            </div>
+            <% totalValue += cproduct.price; %>
+        <% } %>
+    <% }) %>
+</div>
+
+<p id="value">Total Cart Value: Rs. <%= totalValue.toFixed(2) %></p>
+<a href="/buynow/<%= userId %>" class="checkout">Pay</a>
+<a href="/main?userId=<%= userId %>" id="backtomain">Back to Main Page</a>
+
+        
+

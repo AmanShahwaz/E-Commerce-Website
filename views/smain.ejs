@@ -2,6 +2,8 @@
     <div class="sellbtn">
         <a href="/dashboard" class="sav">Sell at Velocity</a>
     </div>
+   
+
     <div class="greeting">
         <P>Christmas Sale is live</P>
     </div>
@@ -15,7 +17,7 @@
                 <% products.forEach(function (product) { %>
                     <% if (product.category==='mobile' ) { %>
                         <div class="product">
-                            <a href="buynow/<%= product.id %>" class="productlink">
+                            <a href="addToCart/<%= product.id %>?userId=<%= userId %>" class="productlink">
                                 <div class="imagebox">
                                     <img src="./images/<%= product.image %>" alt="Image Source not found">
                                 </div>
@@ -24,11 +26,12 @@
                                 </p>
                                 <p class="price" id="price">Rs: <%= product.price %>
                                 </p>
-                                <a href="" class="cartbtn">ADD TO CART</a>
-                                <a href="" class="buybtn"> BUY NOW</a>
+                                <a href="addToCart/<%= product.id %>?userId=<%= userId %>" class="cartbtn">ADD TO
+                                    CART</a>
+                                <a href="buynow/<%= product.id %>?userId=<%= userId %>" class="buybtn"> BUY NOW</a>
                             </a>
-
                         </div>
+
                         <% } %>
                             <% }) %>
             </div>
@@ -41,108 +44,108 @@
                 <% products.forEach(function (product) { %>
                     <% if (product.category==='electronics' ) { %>
                         <div class="product">
-                            <a href="buynow/<%= product.id %>" class="productlink">
-                                <div class="imagebox">
-                                    <img src="./images/<%= product.image %>" alt="Image Source not found">
-                                </div>
-                                <p>
-                                    <%= product.name %>
-                                </p>
-                                <p class="price" id="price">Rs: <%= product.price %>
-                                </p>
-                                <a href="" class="cartbtn">ADD TO CART</a>
-                                <a href="" class="buybtn"> BUY NOW</a>
-                            </a>
 
-                        </div>
-                        <% } %>
-                            <% }) %>
+                        <a href="addToCart/<%= product.id %>?userId=<%= userId %>" class="productlink">
+                            <div class="imagebox">
+                                <img src="./images/<%= product.image %>" alt="Image Source not found">
+                            </div>
+                            <p>
+                                <%= product.name %>
+                            </p>
+                            <p class="price" id="price">Rs: <%= product.price %>
+                            </p>
+                            <a href="addToCart/<%= product.id %>?userId=<%= userId %>" class="cartbtn">ADD TO CART</a>
+                            <a href="buynow/<%= product.id %>?userId=<%= userId %>" class="buybtn"> BUY NOW</a>
+                        </a>
             </div>
-            <div class="trending">
-            </div>
-
+            <% } %>
+                <% }) %>
         </div>
-        <div class="womenclothing">
-            <p class="subheading">Women Clothing</p>
-            <div class="productcontainer">
-                <% products.forEach(function (product) { %>
-                    <% if (product.category==='womenclothing' ) { %>
-                        <div class="product">
-                            <a href="buynow/<%= product.id %>" class="productlink">
-                                <div class="imagebox">
-                                    <img src="./images/<%= product.image %>" alt="Image Source not found">
-                                </div>
-                                <p>
-                                    <%= product.name %>
-                                </p>
-                                <p class="price" id="price">Rs: <%= product.price %>
-                                </p>
-                                <a href="" class="cartbtn">ADD TO CART</a>
-                                <a href="" class="buybtn"> BUY NOW</a>
-                            </a>
-
-                        </div>
-                        <% } %>
-                            <% }) %>
-            </div>
-            <div class="trending">
-            </div>
+        <div class="trending">
         </div>
 
-        <div class="menclothing">
-            <p class="subheading">Men Clothing</p>
-            <div class="productcontainer">
-                <% products.forEach(function (product) { %>
-                    <% if (product.category==='menclothing' ) { %>
-                        <div class="product">
-                            <a href="buynow/<%= product.id %>" class="productlink">
-                                <div class="imagebox">
-                                    <img src="./images/<%= product.image %>" alt="Image Source not found">
-                                </div>
-                                <p>
-                                    <%= product.name %>
-                                </p>
-                                <p class="price" id="price">Rs: <%= product.price %>
-                                </p>
-                                <a href="" class="cartbtn">ADD TO CART</a>
-                                <a href="" class="buybtn"> BUY NOW</a>
-                            </a>
+    </div>
+    <div class="womenclothing">
+        <p class="subheading">Women Clothing</p>
+        <div class="productcontainer">
+            <% products.forEach(function (product) { %>
+                <% if (product.category==='womenclothing' ) { %>
+                    <div class="product">
 
+                    <a href="addToCart/<%= product.id %>?userId=<%= userId %>" class="productlink">
+                        <div class="imagebox">
+                            <img src="./images/<%= product.image %>" alt="Image Source not found">
                         </div>
-                        <% } %>
-                            <% }) %>
-            </div>
-            <div class="trending">
-            </div>
+                        <p>
+                            <%= product.name %>
+                        </p>
+                        <p class="price" id="price">Rs: <%= product.price %>
+                        </p>
+                        <a href="addToCart/<%= product.id %>?userId=<%= userId %>" class="cartbtn">ADD TO CART</a>
+                        <a href="buynow/<%= product.id %>?userId=<%= userId %>" class="buybtn"> BUY NOW</a>
+                    </a>
         </div>
+        <% } %>
+            <% }) %>
+    </div>
+    <div class="trending">
+    </div>
+    </div>
 
+    <div class="menclothing">
+        <p class="subheading">Men Clothing</p>
+        <div class="productcontainer">
+            <% products.forEach(function (product) { %>
+                <% if (product.category==='menclothing' ) { %>
+                    <div class="product">
 
-        <div class="menclothing">
-            <p class="subheading">Footwear</p>
-            <div class="productcontainer">
-                <% products.forEach(function (product) { %>
-                    <% if (product.category==='shoes' ) { %>
-                        <div class="product">
-                            <a href="buynow/<%= product.id %>" class="productlink">
-                                <div class="imagebox">
-                                    <img src="./images/<%= product.image %>" alt="Image Source not found">
-                                </div>
-                                <p>
-                                    <%= product.name %>
-                                </p>
-                                <p class="price" id="price">Rs: <%= product.price %>
-                                </p>
-                                <a href="" class="cartbtn">ADD TO CART</a>
-                                <a href="" class="buybtn"> BUY NOW</a>
-                            </a>
-
+                    <a href="addToCart/<%= product.id %>?userId=<%= userId %>" class="productlink">
+                        <div class="imagebox">
+                            <img src="./images/<%= product.image %>" alt="Image Source not found">
                         </div>
-                        <% } %>
-                            <% }) %>
-            </div>
-            <div class="trending">
-            </div>
+                        <p>
+                            <%= product.name %>
+                        </p>
+                        <p class="price" id="price">Rs: <%= product.price %>
+                        </p>
+                        <a href="addToCart/<%= product.id %>?userId=<%= userId %>" class="cartbtn">ADD TO CART</a>
+                        <a href="buynow/<%= product.id %>?userId=<%= userId %>" class="buybtn"> BUY NOW</a>
+                    </a>
         </div>
+        <% } %>
+            <% }) %>
+    </div>
+    <div class="trending">
+    </div>
+    </div>
+
+
+    <div class="menclothing">
+        <p class="subheading">Footwear</p>
+        <div class="productcontainer">
+            <% products.forEach(function (product) { %>
+                <% if (product.category==='shoes' ) { %>
+                    <div class="product">
+
+                    <a href="addToCart/<%= product.id %>?userId=<%= userId %>" class="productlink">
+                        <div class="imagebox">
+                            <img src="./images/<%= product.image %>" alt="Image Source not found">
+                        </div>
+                        <p>
+                            <%= product.name %>
+                        </p>
+                        <p class="price" id="price">Rs: <%= product.price %>
+                        </p>
+                        <a href="addToCart/<%= product.id %>?userId=<%= userId %>" class="cartbtn">ADD TO CART</a>
+                        <a href="buynow/<%= product.id %>?userId=<%= userId %>" class="buybtn"> BUY NOW</a>
+                    </a>
+        </div>
+        <% } %>
+            <% }) %>
+    </div>
+    <div class="trending">
+    </div>
+    </div>
 
 
 

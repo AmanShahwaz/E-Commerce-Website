@@ -1,4 +1,38 @@
-<%- include('header') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Shop Online at Velocity</title>
+</head>
+<body>
+    <div class="navbar">
+        <a class="heading" href="/smain">Velocity</a>
+        <div>
+            <a class="account" href="">Account</a>
+            <a class="account" href="cart/<%= userId %>">Cart</a>
+        </div>
+    </div>
+    <div class="menu">
+        <div class="links">
+            <a href="/mobile/<%= userId %>">Phone</a>
+            <a href="/electronics/<%= userId %>">Electronics</a>
+            <a href="/menclothing/<%= userId %>">Men Clothings</a>
+            <a href="/womenclothing/<%= userId %>">Women Clothings</a>
+            <a href="/footwear/<%= userId %>">Footwear</a>
+            <a href="/furniture/<%= userId %>">Furniture</a>        
+        </div>
+        
+        <div class="searchbox">
+            <form action="/header"> 
+                <input type="text" placeholder="Search Velocity">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="maincontainer">
 
     <p class="subheading">Smart Phones</p>
     <div class="productcontainer">
@@ -7,15 +41,16 @@
                 <div class="product">
                     <a href="buynow/<%= product.id %>" class="productlink">
                         <div class="imagebox">
-                            <img src="./images/<%= product.image %>" alt="Image Source not found">
+                            <img src="/images/<%= product.image %>" alt="Image Source not found">
                         </div>
                         <p>
                             <%= product.name %>
                         </p>
                         <p class="price" id="price">Rs: <%= product.price %>
                         </p>
-                        <a href="" class="cartbtn">ADD TO CART</a>
-                        <a href="" class="buybtn"> BUY NOW</a>
+                        <a href="/addToCart/<%= product.id %>?userId=<%= userId %>" class="cartbtn">ADD TO
+                            CART</a>
+                        <a href="/buynow/<%= product.id %>?userId=<%= userId %>" class="buybtn"> BUY NOW</a>
                     </a>
 
                 </div>

@@ -18,13 +18,12 @@
     </div>
     <div class="menu">
         <div class="links">
-
-            <a href="/mobile">Phone</a>
-            <a href="/electronics">Electronics</a>
-            <a href="/menclothing">Men Clothings</a>
-            <a href="/womenclothing">Women Clothings</a>
-            <a href="/footwear">Footwear</a>
-            <a href="/furniture">Furniture</a>
+            <a href="/mobile/<%= userId %>">Phone</a>
+            <a href="/electronics/<%= userId %>">Electronics</a>
+            <a href="/menclothing/<%= userId %>">Men Clothings</a>
+            <a href="/womenclothing/<%= userId %>">Women Clothings</a>
+            <a href="/footwear/<%= userId %>">Footwear</a>
+            <a href="/furniture/<%= userId %>">Furniture</a>        
         </div>
 
         <div class="searchbox">
@@ -53,7 +52,7 @@
                     </p>
                 </div>
                 <div class="btnbox">
-                    <a href="" class="buybtn"> BUY NOW</a>
+                    <a href="" class="buybtn"> CHECK OUT</a>
                     <a href="" class="buybtn"> ADD TO CART</a>
                 </div>
             </div>

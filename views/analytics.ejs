@@ -22,7 +22,7 @@
             <a href="/mobiles">Men Clothings</a>
             <a href="/mobiles">Women Clothings</a>
             <a href="/mobiles">Footwear</a>
-            <a href="/mobiles">Furniture</a>        
+            <a href="/mobiles">Furnit        
         </div>
         
         <div class="searchbox">
@@ -34,4 +34,33 @@
     </div>
 
     <div class="maincontainer">
+
+
+        <h1>Product Analytics</h1>
+
+        <div class="analytics-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% products.forEach(function(product) { %>
+                        <tr>
+                            <td><%= product.name %></td>
+                            <td><%= product.description %></td>
+                            <td>Rs. <%= product.price.toFixed(2) %></td>
+                            <td><%= product.quantity %></td>
+                            <td><%= product.category %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    
 
